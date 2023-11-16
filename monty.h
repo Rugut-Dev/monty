@@ -38,6 +38,6 @@ typedef struct instruction_s
 
 int main(void);
 char **tokenizer(char *lineptr);
-
+int _getline(char *av, instruction_t *instructs, size_t size);
 
 #endif
