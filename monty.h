@@ -37,6 +37,7 @@ typedef struct instruction_s
 } instruction_t;
 
 int main(void);
+char **tokenizer(char *lineptr);
 
 
 #endif
