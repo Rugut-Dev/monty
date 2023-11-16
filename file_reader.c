@@ -1,14 +1,11 @@
 #include "monty.h"
 
-typedef struct {
-	char *data;
-} Line;
-
 int _getline(char *av) {
 	FILE *fp;
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t read;
+	unsigned int line_num = 0;
 
 	// Open the file for reading
 	fp = fopen(av, "r");
@@ -20,14 +17,18 @@ int _getline(char *av) {
 	// Read lines from the file and store them in a struct
 	while ((read = getline(&line, &len, fp)) != -1) {
 		instruction_t *newLine;
+		char **wrds;
+		wrds = tokenizer(line);
+
+		line_num++;
+
 		newLine = malloc(sizeof(instruction_t));
 		
-		newLine->data = strdup(line);
+		newLine->opcode = wrds[0];
 
 		// Process the line
-		printf("%s", newLine->data);
 
-		free(newLine->data);
+		free(newLine->opcode);
 		free(newLine);
 	}
 
