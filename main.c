@@ -15,16 +15,15 @@ int main(int argc, char *argv[])
 			exit(EXIT_FAILURE);
 		} else
 		{
-			FILE *fp;
-			fp = fopen(argv[1],"r");
 
-			// if {NULL -> Cant Open File};
+			instruction_t instructs[] = {
+				{"push", &push},
+				{"pall", &pall},
+			};
 
-			while (!feof(fp))
-			{
-				while (getline())
-				{
-					//read each line
-					//tokenize and sort(wordCounter)
-					//store line in instruction_t node
-				}
+			_getline(argv[1], instructs, sizeof(instructs) /
+				 sizeof(instructs[0]));
+		}
+	}
+	return (0);
+}

@@ -13,7 +13,6 @@ int _getline(char *av, instruction_t *instructs, size_t size) {
 		//perror("fopen");
 		exit(EXIT_FAILURE);
 	}
-
 	// Read lines from the file and store them in a struct
 	while ((read = getline(&line, &len, fp)) != -1) {
 
@@ -28,6 +27,7 @@ int _getline(char *av, instruction_t *instructs, size_t size) {
 		for (size_t i = 0; i < size; ++i) {
 			if (strcmp(opcode_tx, instructs[i]->opcode) == 0) {
 				instructs[i]->f(NULL, line_num);
+				break;
 			}
 		}
 		line_num++;
