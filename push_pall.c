@@ -12,6 +12,9 @@ void push_func(stack_t **head, unsigned int line_num)
 				char *mess;
 				mess = "L%d: usage: push integer\n";
 				fprintf(stderr, mess, line_num);
+				fclose(global.fp);
+				free(global.line_content);
+				free_dll(*head);
 				exit(EXIT_FAILURE);
 			}
 			i++;
@@ -20,7 +23,6 @@ void push_func(stack_t **head, unsigned int line_num)
 		addnode(head, num);
 	}
 }
-
 
 void addnode(stack_t **head, int num)
 {
@@ -41,7 +43,6 @@ void addnode(stack_t **head, int num)
 	newnode->prev = NULL;
 	*head = newnode;
 }
-
 
 void pall_func(stack_t **head, unsigned int line_num)
 {
