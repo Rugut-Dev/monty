@@ -1,10 +1,12 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#include <Stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <ctype.h>
+#include <string.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -23,6 +25,22 @@ typedef struct stack_s
 } stack_t;
 
 /**
+ * struct global_s - global variables
+ * @arg: data for 'n'
+ * @fp: file pointer
+ * @line_content: line from getline
+ *
+ * Description: global declaration for global vars
+ */
+typedef struct global_s
+{
+	char *arg;
+	FILE *fp;
+	char *line_content;
+} global_t;
+extern global_t global;
+
+/**
  * struct instruction_s - opcode and its function
  * @opcode: the opcode
  * @f: function to handle the opcode
@@ -36,8 +54,12 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-int main(void);
+int main(int argc, char *argv[]);
 char **tokenizer(char *lineptr);
 int _getline(char *av, instruction_t *instructs, size_t size);
+void pall_func(stack_t **head, unsigned int line_num);
+void addnode(stack_t **head, int num);
+void push_func(stack_t **head, unsigned int line_num);
+void free_dll(stack_t *head);
 
 #endif
