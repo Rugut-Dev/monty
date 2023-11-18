@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
 
 /**
- * _getline - reads file and executes opcode
+ * read_line - reads file and executes opcode
  * @fp: file pointer
  * @instructs: array to function pointers
  * @stack: stack reference
@@ -55,7 +55,7 @@ int read_line(FILE *fp, instruction_t *instructs, stack_t **stack)
 
 	global.fp = fp;
 
-	while (getline(&line_content, &len, fp) != -1)
+	while (my_getline(fp, &line_content, &len) != -1)
 	{
 		char *opcode_tx;
 

@@ -60,5 +60,6 @@ void pall_func(stack_t **head, unsigned int line_num);
 void addnode(stack_t **head, int num);
 void push_func(stack_t **head, unsigned int line_num);
 void free_dll(stack_t *head);
+int my_getline(FILE *fp, char **line_content, size_t *len);
 
 #endif
