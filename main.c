@@ -17,7 +17,6 @@ int main(int argc, char *argv[])
 		{"pall", pall_func},
 		{NULL, NULL}
 	};
-
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
@@ -39,7 +38,6 @@ int main(int argc, char *argv[])
 }
 
 
-
 /**
  * read_line - reads file and executes opcode
  * @fp: file pointer
@@ -49,21 +47,29 @@ int main(int argc, char *argv[])
  */
 int read_line(FILE *fp, instruction_t *instructs, stack_t **stack)
 {
-	char *line_content = NULL;
-	size_t len = 0;
+	char *line_content = NULL, *opcode_tx;
 	unsigned int line_num = 0;
+	int max_line_length = 1024, i = 0, line_size;
 
-	global.fp = fp;
-
-	while (my_getline(fp, &line_content, &len) != -1)
+	while (1)
 	{
-		char *opcode_tx;
-
-		int i = 0;
-
+		line_content = malloc(max_line_length * sizeof(char));
+		if (line_content == NULL)
+			malloc_fail();
+		if (fgets(line_content, max_line_length, fp) == NULL)
+		{
+			free(line_content);
+			break;
+		}
+		line_size = char_counter(line_content) + 1;
+		if (line_size > max_line_length)
+		{
+			max_line_length = line_size;
+			free(line_content);
+			continue;
+		}
 		opcode_tx = strtok(line_content, " \n\t");
 		global.arg = strtok(NULL, " \n\t");
-
 		line_num++;
 		while (instructs[i].opcode && opcode_tx)
 		{
@@ -75,17 +81,39 @@ int read_line(FILE *fp, instruction_t *instructs, stack_t **stack)
 			i++;
 		}
 		if (instructs[i].opcode && opcode_tx == NULL)
-		{
-			char *mess;
-
-			mess = "L%d: unknown instruction %s\n";
-			fprintf(stderr, mess, line_num, opcode_tx);
-			fclose(fp);
-			free(line_content);
-			free_dll(*stack);
-			exit(EXIT_FAILURE);
-		}
+			_isNull(fp, line_content, stack, opcode_tx, line_num);
+		free(line_content);
 	}
-	free(line_content);
 	return (0);
+}
+
+/**
+ * _isNull - checks if iterator reached NULL in instructs array
+ * @fp: file pointer
+ * @line_content: line
+ * @stack: stack ptr
+ * @opcode_tx: opcode
+ * @line_num: line number
+ */
+void _isNull(FILE *fp, char *line_content, stack_t  **stack,
+	     char *opcode_tx, unsigned int line_num)
+{
+	char *mess;
+
+	mess = "L%d: unknown instruction %s\n";
+	fprintf(stderr, mess, line_num, opcode_tx);
+	fclose(fp);
+	free(line_content);
+	free_dll(*stack);
+	exit(EXIT_FAILURE);
+}
+
+/**
+ * malloc_fail - if malloc fails
+ *
+ */
+void malloc_fail(void)
+{
+	fprintf(stderr, "Memory allocation failed.\n");
+	exit(EXIT_FAILURE);
 }

@@ -60,6 +60,9 @@ void pall_func(stack_t **head, unsigned int line_num);
 void addnode(stack_t **head, int num);
 void push_func(stack_t **head, unsigned int line_num);
 void free_dll(stack_t *head);
-int my_getline(FILE *fp, char **line_content, size_t *len);
+int char_counter(char *s_line);
+void _isNull(FILE *fp, char *line_content, stack_t  **stack,
+	     char *opcode_tx, unsigned int line_num);
+void malloc_fail(void);
 
 #endif
