@@ -11,6 +11,7 @@ global_t global = {NULL, NULL, NULL};
 int main(int argc, char *argv[])
 {
 	FILE *fp;
+
 	stack_t *stack = NULL;
 	instruction_t instructs[] = {
 		{"push", push_func},
@@ -24,15 +25,16 @@ int main(int argc, char *argv[])
 	} else
 	{
 		fp = fopen(argv[1], "r");
-		if (!fp)
+		global.fp = fp;
+		if (!global.fp)
 		{
 			fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 			exit(EXIT_FAILURE);
 		}
 
-		read_line(fp, instructs, &stack);
+		read_line(global.fp, instructs, &stack);
 		free_dll(stack);
-		fclose(fp);
+		fclose(global.fp);
 	}
 	return (0);
 }
@@ -54,21 +56,22 @@ int read_line(FILE *fp, instruction_t *instructs, stack_t **stack)
 	while (1)
 	{
 		line_content = malloc(max_line_length * sizeof(char));
-		if (line_content == NULL)
+		global.line_content = line_content;
+		if (global.line_content == NULL)
 			malloc_fail();
-		if (fgets(line_content, max_line_length, fp) == NULL)
+		if (fgets(global.line_content, max_line_length, fp) == NULL)
 		{
-			free(line_content);
+			free(global.line_content);
 			break;
 		}
-		line_size = char_counter(line_content) + 1;
+		line_size = char_counter(global.line_content) + 1;
 		if (line_size > max_line_length)
 		{
 			max_line_length = line_size;
-			free(line_content);
+			free(global.line_content);
 			continue;
 		}
-		opcode_tx = strtok(line_content, " \n\t");
+		opcode_tx = strtok(global.line_content, " \n\t");
 		global.arg = strtok(NULL, " \n\t");
 		line_num++;
 		while (instructs[i].opcode && opcode_tx)
@@ -80,9 +83,10 @@ int read_line(FILE *fp, instruction_t *instructs, stack_t **stack)
 			}
 			i++;
 		}
-		if (instructs[i--].opcode && opcode_tx == NULL)
-			_isNull(fp, line_content, stack, opcode_tx, line_num);
-		free(line_content);
+		if (instructs[i--].opcode == NULL)
+			_isNull(fp, global.line_content, stack, opcode_tx, line_num);
+		if (global.line_content)
+			free(global.line_content);
 	}
 	return (0);
 }
