@@ -1,8 +1,14 @@
 #include "monty.h"
 
+/** 
+ * push_func - checks global.arg and calls addnode
+ * @head: stack head pointer
+ * @line_num: file's line number
+ */
 void push_func(stack_t **head, unsigned int line_num)
 {
 	int i = 0, num;
+
 	if (global.arg)
 	{
 		while (global.arg[i])
@@ -10,6 +16,7 @@ void push_func(stack_t **head, unsigned int line_num)
 			if (!isdigit(global.arg[i]))
 			{
 				char *mess;
+
 				mess = "L%d: usage: push integer\n";
 				fprintf(stderr, mess, line_num);
 				fclose(global.fp);
@@ -24,6 +31,13 @@ void push_func(stack_t **head, unsigned int line_num)
 	}
 }
 
+
+
+/**
+ * addnode - adds node in O(1)
+ * @head: stack's head
+ * @num: data
+ */
 void addnode(stack_t **head, int num)
 {
 	stack_t *newnode, *temp;
@@ -44,6 +58,13 @@ void addnode(stack_t **head, int num)
 	*head = newnode;
 }
 
+
+
+/**
+ * pall_func - displays elements in stack LIFO
+ * @head: stack head ptr
+ * @line_num: unused file's line number
+ */
 void pall_func(stack_t **head, unsigned int line_num)
 {
 	(void)line_num;
@@ -52,7 +73,8 @@ void pall_func(stack_t **head, unsigned int line_num)
 	temp = *head;
 	if (temp == NULL)
 		return;
-	while(temp != NULL)
+
+	while (temp != NULL)
 	{
 		printf("%d\n", temp->n);
 		temp = temp->next;
