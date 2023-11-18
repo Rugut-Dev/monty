@@ -80,7 +80,7 @@ int read_line(FILE *fp, instruction_t *instructs, stack_t **stack)
 			}
 			i++;
 		}
-		if (instructs[i].opcode && opcode_tx == NULL)
+		if (instructs[i--].opcode && opcode_tx == NULL)
 			_isNull(fp, line_content, stack, opcode_tx, line_num);
 		free(line_content);
 	}

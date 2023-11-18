@@ -58,8 +58,6 @@ void addnode(stack_t **head, int num)
 	*head = newnode;
 }
 
-
-
 /**
  * pall_func - displays elements in stack LIFO
  * @head: stack head ptr
