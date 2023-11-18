@@ -1,4 +1,5 @@
 #include "monty.h"
+
 /**
  * free_dll - frees whole stack
  * @head: start pointer

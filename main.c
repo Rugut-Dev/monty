@@ -12,6 +12,11 @@ int main(int argc, char *argv[])
 {
 	FILE *fp;
 	stack_t *stack = NULL;
+	instruction_t instructs[] = {
+		{"push", push_func},
+		{"pall", pall_func},
+		{NULL, NULL}
+	};
 
 	if (argc != 2)
 	{
@@ -26,12 +31,7 @@ int main(int argc, char *argv[])
 			exit(EXIT_FAILURE);
 		}
 
-		instruction_t instructs[] = {
-			{"push", push_func},
-			{"pall", pall_func},
-			{NULL, NULL}
-		};
-		_getline(fp, instructs, &stack);
+		read_line(fp, instructs, &stack);
 		free_dll(stack);
 		fclose(fp);
 	}
@@ -47,16 +47,15 @@ int main(int argc, char *argv[])
  * @stack: stack reference
  * Return: 0 on success
  */
-int _getline(FILE *fp, instruction_t *instructs, stack_t **stack)
+int read_line(FILE *fp, instruction_t *instructs, stack_t **stack)
 {
 	char *line_content = NULL;
 	size_t len = 0;
-	ssize_t bytes_read = 0;
 	unsigned int line_num = 0;
 
 	global.fp = fp;
 
-	while ((bytes_read = getline(&line_content, &len, fp)) != -1)
+	while (getline(&line_content, &len, fp) != -1)
 	{
 		char *opcode_tx;
 

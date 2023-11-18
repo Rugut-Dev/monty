@@ -1,6 +1,6 @@
 #include "monty.h"
 
-/** 
+/**
  * push_func - checks global.arg and calls addnode
  * @head: stack head pointer
  * @line_num: file's line number
@@ -67,8 +67,8 @@ void addnode(stack_t **head, int num)
  */
 void pall_func(stack_t **head, unsigned int line_num)
 {
-	(void)line_num;
 	stack_t *temp;
+	(void)line_num;
 
 	temp = *head;
 	if (temp == NULL)

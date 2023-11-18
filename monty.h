@@ -55,7 +55,7 @@ typedef struct instruction_s
 } instruction_t;
 
 int main(int argc, char *argv[]);
-int _getline(FILE *fp, instruction_t *instructs, stack_t **stack);
+int read_line(FILE *fp, instruction_t *instructs, stack_t **stack);
 void pall_func(stack_t **head, unsigned int line_num);
 void addnode(stack_t **head, int num);
 void push_func(stack_t **head, unsigned int line_num);
