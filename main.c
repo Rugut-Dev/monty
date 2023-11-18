@@ -65,5 +65,5 @@ int _getline(FILE *fp, instruction_t *instructs, stack_t **stack) {
     }
 
     free(line_content);
-    return 0; // Return 0 upon successful completion of reading all lines
+    return (0);
 }
