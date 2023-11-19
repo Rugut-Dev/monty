@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
 		{"pop", pop_func},
 		{"swap", swap_func},
 		{"add", add_func},
+		{"nop", nop_func},
 		{NULL, NULL}
 	};
 	if (argc != 2)
@@ -106,9 +107,8 @@ int read_line(FILE *fp, instruction_t *instructs, stack_t **stack)
 void _isNull(FILE *fp, char *line_content, stack_t  **stack,
 	     char *opcode_tx, unsigned int line_num)
 {
-	char *mess;
+	char *mess = "L%d: unknown instruction %s\n";
 
-	mess = "L%d: unknown instruction %s\n";
 	fprintf(stderr, mess, line_num, opcode_tx);
 	fclose(fp);
 	free(line_content);
