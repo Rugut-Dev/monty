@@ -8,6 +8,7 @@
  */
 void pop_func(stack_t **head, unsigned int line_num)
 {
+	stack_t *top
 	if (*head == NULL)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", line_num);
@@ -16,5 +17,7 @@ void pop_func(stack_t **head, unsigned int line_num)
 		fclose(global.fp);
 		exit(EXIT_FAILURE);
 	}
+	top = *head;
 	*head = (*head)->next;
+	free(top);
 }
