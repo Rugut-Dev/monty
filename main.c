@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 		{"pall", pall_func},
 		{"pint", pint_func},
 		{"pop", pop_func},
+		{"swap", swap_func},
 		{NULL, NULL}
 	};
 	if (argc != 2)

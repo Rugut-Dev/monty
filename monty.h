@@ -66,5 +66,6 @@ void _isNull(FILE *fp, char *line_content, stack_t  **stack,
 void malloc_fail(void);
 void pint_func(stack_t **head, unsigned int line_num);
 void pop_func(stack_t **head, unsigned int line_num);
+void swap_func(stack_t **head, unsigned int line_num);
 
 #endif
