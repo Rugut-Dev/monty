@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
 	instruction_t instructs[] = {
 		{"push", push_func},
 		{"pall", pall_func},
+		{"pint", pint_func},
 		{NULL, NULL}
 	};
 	if (argc != 2)
@@ -49,14 +50,13 @@ int main(int argc, char *argv[])
  */
 int read_line(FILE *fp, instruction_t *instructs, stack_t **stack)
 {
-	char *line_content = NULL, *opcode_tx;
+	char *op_x;
 	unsigned int line_num = 0;
 	int max_line_length = 1024, i = 0, line_size;
 
 	while (1)
 	{
-		line_content = malloc(max_line_length * sizeof(char));
-		global.line_content = line_content;
+		global.line_content = malloc(max_line_length * sizeof(char));
 		if (global.line_content == NULL)
 			malloc_fail();
 		if (fgets(global.line_content, max_line_length, fp) == NULL)
@@ -71,20 +71,21 @@ int read_line(FILE *fp, instruction_t *instructs, stack_t **stack)
 			free(global.line_content);
 			continue;
 		}
-		opcode_tx = strtok(global.line_content, " \n\t");
+		op_x = strtok(global.line_content, " \n\t");
 		global.arg = strtok(NULL, " \n\t");
 		line_num++;
-		while (instructs[i].opcode && opcode_tx)
+		i = 0;
+		while (instructs[i].opcode != NULL)
 		{
-			if (strcmp(opcode_tx, instructs[i].opcode) == 0)
+			if (strcmp(op_x, instructs[i].opcode) == 0)
 			{
 				instructs[i].f(stack, line_num);
 				break;
 			}
 			i++;
 		}
-		if (instructs[i--].opcode == NULL)
-			_isNull(fp, global.line_content, stack, opcode_tx, line_num);
+		if (instructs[i].opcode == NULL)
+			_isNull(fp, global.line_content, stack, op_x, line_num);
 		if (global.line_content)
 			free(global.line_content);
 	}

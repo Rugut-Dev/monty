@@ -64,5 +64,6 @@ int char_counter(char *s_line);
 void _isNull(FILE *fp, char *line_content, stack_t  **stack,
 	     char *opcode_tx, unsigned int line_num);
 void malloc_fail(void);
+void pint_func(stack_t **head, unsigned int line_num);
 
 #endif
