@@ -20,18 +20,6 @@ Monty 0.98 is a scripting language that is first compiled into Monty byte codes 
 
 Files containing Monty byte codes usually have the .m extension. Most of the industry uses this standard but it is not required by the specification of the language. There is not more than one instruction per line. There can be any number of spaces before or after the opcode and its argument:
 
-julien@ubuntu:~/monty$ cat -e bytecodes/000.m
-push 0$
-push 1$
-push 2$
-  push 3$
-                   pall    $
-push 4$
-    push 5    $
-      push    6        $
-pall$
-julien@ubuntu:~/monty$
-
 ### The monty program
 
 * Usage: monty file
@@ -71,6 +59,7 @@ The opcode pall prints all the values on the stack, starting from the top of the
 * Format: see example
 * If the stack is empty, don’t print anything
 
+
 #### 1.pint
 Implement the pint opcode.
 
@@ -80,6 +69,7 @@ The opcode pint prints the value at the top of the stack, followed by a new line
 
 * Usage: pint
 * If the stack is empty, print the error message L<line_number>: can't pint, stack empty, followed by a new line, and exit with the status EXIT_FAILURE
+
 
 #### 2. pop
 Implement the pop opcode.
@@ -91,6 +81,7 @@ The opcode pop removes the top element of the stack.
 * Usage: pop
 * If the stack is empty, print the error message L<line_number>: can't pop an empty stack, followed by a new line, and exit with the status EXIT_FAILURE
 
+
 #### 3. swap
 Implement the swap opcode.
 
@@ -100,6 +91,7 @@ The opcode swap swaps the top two elements of the stack.
 
 * Usage: swap
 * If the stack contains less than two elements, print the error message L<line_number>: can't swap, stack too short, followed by a new line, and exit with the status EXIT_FAILURE
+
 
 #### 4. add
 Implement the add opcode.
@@ -113,6 +105,7 @@ The opcode add adds the top two elements of the stack.
 * The result is stored in the second top element of the stack, and the top element is removed, so that at the end:
 ** The top element of the stack contains the result
 ** The stack is one element shorter
+
 
 #### 5. nop
 Implement the nop opcode.
